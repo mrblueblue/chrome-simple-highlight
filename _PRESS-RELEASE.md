@@ -16,7 +16,7 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
+## Annotate ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
 ## Sub-Heading ##
@@ -25,11 +25,17 @@ Once the project moves into development, the press release can be used as a touc
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
 
+  > Annotate allows you to attach annotations to text on the web.
+
 ## Problem ##
   > Describe the problem your product solves.
 
+  > Web annotation is currently siloed. 
+
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+
+  > The annotations you make for a specific site remains on the site.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
