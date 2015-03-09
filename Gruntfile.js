@@ -34,7 +34,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= config.app %>/scripts/{,*/}*.js'],
-        tasks: ['jshint'],
+        tasks: ['jshint', 'chrom','chrome_extension_reload'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -294,6 +294,8 @@ module.exports = function (grunt) {
       }
     }
   });
+
+  grunt.loadNpmTasks('grunt-chrome-extension-reload');
 
   grunt.registerTask('debug', function () {
     grunt.task.run([
