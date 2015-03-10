@@ -1,3 +1,6 @@
+
+var Color = 'Yellow'
+
 var Highlighter = rangy.createHighlighter();
 
 var Red = rangy.createClassApplier('Red');
@@ -7,14 +10,26 @@ var Pink = rangy.createClassApplier('Pink');
 var Aqua = rangy.createClassApplier('Aqua');
 var Yellow = rangy.createClassApplier('Yellow');
 
-var Color = 'Yellow'
-
 Highlighter.addClassApplier(Red)
 Highlighter.addClassApplier(Blue)
 Highlighter.addClassApplier(Green)
 Highlighter.addClassApplier(Pink)
 Highlighter.addClassApplier(Aqua)
 Highlighter.addClassApplier(Yellow)
+
+$(function() {
+
+  var url = window.location.href.toString();
+  var ranges;
+
+  initialize();
+  
+  $('body').mouseup(function(){
+    Highlighter.highlightSelection(Color)
+    ranges = Highlighter.serialize();
+    saveHighlights(ranges);
+  });
+});
 
 // Message Listener
 chrome.runtime.onMessage.addListener(
@@ -25,6 +40,10 @@ chrome.runtime.onMessage.addListener(
     console.log("the COLOR was ", Color)
     Color = request.popup;
     console.log("the COLOR is now ", Color)
+   }
+
+   if (request.remove) {
+    Highlighter.removeAllHighlights();
    }
 
   }
@@ -85,22 +104,6 @@ function saveHighlights(ranges){
   });  
 }
 
-$(function() {
-
-  var url = window.location.href.toString();
-  var ranges;
-
-  initialize();
-  
-  $('body').mouseup(function(){
-    Highlighter.highlightSelection(Color)
-    ranges = Highlighter.serialize();
-    saveHighlights(ranges);
-  });
-
-  
-
-});
 
 
 

@@ -4,22 +4,23 @@
     <meta charset="utf-8">
     <link href="styles/main.css" rel="stylesheet">
     <link href="styles/background.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     <script src="bower_components/jquery/dist/jquery.js"></script>
+
 
   </head>
   <body>
-    <h1>Annotate? (Highlight)</h1>
-
-    <p>Thanks for using Annotate? (Highlight)</p>
-    <p>There's only highlight functionality</p>
-
     <div class="button-container">
-      <button class="Red"></button>
-      <button class="Blue"></button>
-      <button class="Green"></button>
-      <button class="Pink"></button>
-      <button class="Aqua"></button>
-      <button class="Yellow"></button>
+      <button id="color-button" class="Red"></button>
+      <button id="color-button" class="Blue"></button>
+      <button id="color-button" class="Green"></button>
+      <button id="color-button" class="Pink"></button>
+      <button id="color-button" class="Aqua"></button>
+      <button id="color-button" class="Yellow" selected></button>
+    </div>
+
+    <div>
+      <button class="remove"></button>
     </div>
 
     <script src="scripts/popup.js"></script>
