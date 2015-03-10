@@ -41,11 +41,9 @@ function initialize(){
         console.log("The URL exists in storage")
         console.log("starting deserialization")
 
-        var ranges;
+        var ranges = result[url]
 
-        console.log("ELSE", result[url])
-
-        Highlighter.deserialize(result[url][0]);
+        Highlighter.deserialize(ranges);
       }
     });
   });
@@ -62,33 +60,16 @@ function saveHighlights(ranges){
     if ( result[url] === undefined ){
       console.log("ERROR URL DOESNT EXIST ON STORAGE");
     } else {
-      result[url].push(ranges)
+      result[url] = ranges
     }
 
-    console.log("ADDED ",result.url)
+    console.log("ADDED ",result[url])
 
     chrome.storage.local.set(result, function(){
       console.log('success')
     });
   });  
 }
-
-// function trawlRanges(url){
-
-//   chrome.storage.local.get( function (result) {
-
-//     var ranges = result[url];
-
-//     ranges.forEach( function (range) {
-//       console.log("starting deserialize")
-//       rangy.deserializeRange(range)
-//       console.log(window.getSelection())
-//       highlight('yellow');      
-//     })
-//   })
-
-// };
-
 
 $(function() {
 
