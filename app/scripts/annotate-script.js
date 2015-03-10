@@ -1,7 +1,8 @@
- // chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
- //   console.log(response);
- // });
+ chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
+   console.log(response);
+ });
 
+ 
  chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log(request)
