@@ -1,8 +1,8 @@
 {
-  "name": "__MSG_appName__",
-  "version": "0.0.1",
+  "name": "highlighter",
+  "version": "0.0.2",
   "manifest_version": 2,
-  "description": "a simple annotator",
+  "description": "a simple highlighter",
   "icons": {
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
