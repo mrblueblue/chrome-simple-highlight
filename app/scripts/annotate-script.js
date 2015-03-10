@@ -1,4 +1,11 @@
+ // chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
+ //   console.log(response);
+ // });
 
+ chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(request)
+  });
 
 function saveRange(range){
   chrome.storage.local.get('highlighted', function(result){
@@ -16,7 +23,7 @@ function saveRange(range){
 
 function init(){
 
- 
+
 
   console.log("beginning initialization");
 
@@ -94,5 +101,7 @@ $(function() {
       console.log('highlighted!')
         highlight('yellow');
   });
+
+
 });
 
