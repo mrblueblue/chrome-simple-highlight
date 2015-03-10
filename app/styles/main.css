@@ -2,4 +2,33 @@ body {
   padding: 20px;
 }
 
-.highlight { background-color:#FFFF00; }
+.Red {
+    color: #000;
+    background: #fcbcbc;
+    border-color: #fcbcbc;
+}
+.Green {
+    color: #000;
+    background: #c7fcbc;
+    border-color: #c7fcbc;
+}
+.Blue {
+    color: #000;
+    background: #bcdffc;
+    border-color: #bcdffc;
+}
+.Pink {
+    color: #000;
+    background: #fcbcfa;
+    border-color: #fcbcfa;
+}
+.Yellow {
+    color: #000;
+    background: #f8f89b;
+    border-color: #f8f89b;
+}
+.Aqua {
+    color: #000;
+    background: #bcfcf7;
+    border-color: #bcfcf7;
+}

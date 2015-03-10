@@ -1,19 +1,38 @@
+var Highlighter = rangy.createHighlighter();
+
+var Red = rangy.createClassApplier('Red');
+var Blue = rangy.createClassApplier('Blue');
+var Green = rangy.createClassApplier('Green');
+var Pink = rangy.createClassApplier('Pink');
+var Aqua = rangy.createClassApplier('Aqua');
+
+Highlighter
+  .addClassApplier(Red)
+  .addClassApplier(Blue)
+  .addClassApplier(Green)
+  .addClassApplier(Pink)
+  .addClassApplier(Aqua)
+
+console.dir(Highlighter);
+
 
 
 function initialize(){
 
   // Request Tab URL from Background
-  chrome.runtime.sendMessage({greeting: "I need my url. Please. Thank you."}, function(response) {
+  chrome.runtime.sendMessage({greeting: "What is my URL?"}, function(response) {
    
     var url = response.url.toString();
 
     chrome.storage.local.get(function (result) {
       console.log('This is the Storage',result)
-
+      
       // If URL does not exist on storage, then create storage array
-      if (result.url === undefined){
-        var urlStorage={}
-        urlStorage[url]=[];
+      if (result[url] === undefined){
+
+        var urlStorage={} 
+            urlStorage[url]=[];
+
         chrome.storage.local.set(urlStorage, function(result){
           console.log("Added URL to storage")
         })
@@ -26,7 +45,6 @@ function initialize(){
 
  });
 };
-
 
 function saveRange(range){
 
@@ -52,49 +70,6 @@ function saveRange(range){
   });  
 }
 
-
-function makeEditableAndHighlight(colour) {
-    var range, sel = window.getSelection();
-
-    if (sel.rangeCount && sel.getRangeAt) {
-      range = sel.getRangeAt(0);
-
-      // Save range to chrome storage
-      console.log("THIS IS A RANGE", rangy.serializeRange(range))
-      saveRange(rangy.serializeRange(range));
-    }
-
-    document.designMode = "on";
-    if (range) {
-      sel.removeAllRanges();
-      sel.addRange(range);
-    }
-    // Use HiliteColor since some browsers apply BackColor to the whole block
-    if (!document.execCommand("HiliteColor", false, colour)) {
-      document.execCommand("BackColor", false, colour);
-    }
-    
-    document.designMode = "off";
-}
-
-function highlight(colour) {
-    var range, sel;
-    if (window.getSelection) {
-        // IE9 and non-IE
-        try {
-            if (!document.execCommand("BackColor", false, colour)) {
-                makeEditableAndHighlight(colour);
-            }
-        } catch (ex) {
-            makeEditableAndHighlight(colour)
-        }
-    } else if (document.selection && document.selection.createRange) {
-        // IE <= 8 case
-        range = document.selection.createRange();
-        range.execCommand("BackColor", false, colour);
-    }
-}
-
 function trawlRanges(url){
 
   chrome.storage.local.get( function (result) {
@@ -102,7 +77,10 @@ function trawlRanges(url){
     var ranges = result[url];
 
     ranges.forEach( function (range) {
-      console.dir(rangy.deserializeRange(range));
+      console.log("starting deserialize")
+      rangy.deserializeRange(range)
+      console.log(window.getSelection())
+      highlight('yellow');      
     })
   })
 
@@ -117,10 +95,10 @@ $(function() {
 
   trawlRanges(url);
   
-  $('body').on('click', function(){console.dir($('this').data())})
+  // $('body').on('click', function(){console.dir($('this').data())})
   $('body').mouseup(function(){
-      console.log('highlighted!')
-        highlight('yellow');
+    console.log("HIGHLIGHT NOW")
+    Highlighter.highlightSelection('Yellow')
   });
 
 
