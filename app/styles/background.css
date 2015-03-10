@@ -1,0 +1,15 @@
+
+button {
+	border-radius: 5px;
+	width: 45px;
+  height: 45px;
+  color:transparent;
+	text-shadow:none ;
+	border:none ;
+	box-shadow:none;
+	margin: 5px;
+}
+
+.button-container {
+	margin: 0 auto;
+}
