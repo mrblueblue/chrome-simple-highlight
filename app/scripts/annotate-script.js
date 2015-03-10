@@ -66,13 +66,14 @@ function makeEditableAndHighlight(colour) {
 
     document.designMode = "on";
     if (range) {
-        sel.removeAllRanges();
-        sel.addRange(range);
+      sel.removeAllRanges();
+      sel.addRange(range);
     }
     // Use HiliteColor since some browsers apply BackColor to the whole block
     if (!document.execCommand("HiliteColor", false, colour)) {
-        document.execCommand("BackColor", false, colour);
+      document.execCommand("BackColor", false, colour);
     }
+    
     document.designMode = "off";
 }
 
@@ -100,11 +101,8 @@ function trawlRanges(url){
 
     var ranges = result[url];
 
-    console.dir(result)
-    // console.dir(ranges)
-
     ranges.forEach( function (range) {
-      console.dir(range);
+      console.dir(rangy.deserializeRange(range));
     })
   })
 
