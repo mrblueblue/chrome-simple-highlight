@@ -1,3 +1,5 @@
+
+
 function initialize(){
 
   // Request Tab URL from Background
@@ -58,7 +60,8 @@ function makeEditableAndHighlight(colour) {
       range = sel.getRangeAt(0);
 
       // Save range to chrome storage
-      saveRange(range);
+      console.log("THIS IS A RANGE", rangy.serializeRange(range))
+      saveRange(rangy.serializeRange(range));
     }
 
     document.designMode = "on";
@@ -94,7 +97,15 @@ function highlight(colour) {
 function trawlRanges(url){
 
   chrome.storage.local.get( function (result) {
-    
+
+    var ranges = result[url];
+
+    console.dir(result)
+    // console.dir(ranges)
+
+    ranges.forEach( function (range) {
+      console.dir(range);
+    })
   })
 
 };
@@ -102,8 +113,13 @@ function trawlRanges(url){
 
 $(function() {
 
+  var url = window.location.href.toString();
+
   initialize();
+
+  trawlRanges(url);
   
+  $('body').on('click', function(){console.dir($('this').data())})
   $('body').mouseup(function(){
       console.log('highlighted!')
         highlight('yellow');
@@ -111,4 +127,5 @@ $(function() {
 
 
 });
+
 
