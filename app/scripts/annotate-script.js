@@ -7,6 +7,8 @@ var Pink = rangy.createClassApplier('Pink');
 var Aqua = rangy.createClassApplier('Aqua');
 var Yellow = rangy.createClassApplier('Yellow');
 
+var Color = 'Yellow'
+
 Highlighter.addClassApplier(Red)
 Highlighter.addClassApplier(Blue)
 Highlighter.addClassApplier(Green)
@@ -14,7 +16,12 @@ Highlighter.addClassApplier(Pink)
 Highlighter.addClassApplier(Aqua)
 Highlighter.addClassApplier(Yellow)
 
-console.dir(Highlighter);
+// Message Listener
+chrome.runtime.onMessage.addListener(
+  function (request, sender, sendResponse) {
+   console.log(request, " received from ", sender)
+  }
+);
 
 function initialize(){
 
@@ -79,7 +86,7 @@ $(function() {
   initialize();
   
   $('body').mouseup(function(){
-    Highlighter.highlightSelection('Yellow')
+    Highlighter.highlightSelection(Color)
     ranges = Highlighter.serialize();
     saveHighlights(ranges);
   });
