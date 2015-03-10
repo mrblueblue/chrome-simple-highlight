@@ -1,24 +1,49 @@
 
-// $(document).ready(function(){
-// 	console.log("ANNOATE SCRIPT SAYS ANNOTATE!")
 
-// 	$( "p" ).mouseup(function() {
-//     var selection = window.getSelection()
-//     console.log(selection.toString())
-//     console.log(selection)
-//     console.log("hello")
+function saveRange(range){
+  chrome.storage.local.get('highlighted', function(result){
+    console.log("now we are pushing")
+    console.log(result)
 
-//     document.execCommand("BackColor", false, "yellow");
+    result['highlighted'].push(range)
+    console.log('this is the result ', result)
 
-//   })
+    chrome.storage.local.set(result, function(){
+      console.log('success')
+    });
+  });  
+}
 
-// })
+function init(){
+
+ 
+
+  console.log("beginning initialization");
+
+  chrome.storage.local.get('highlighted', function(result) {
+
+    if (result === undefined) {
+      console.log('result is undefined')
+      chrome.storage.local.set({'highlighted':[]}, function(result){
+        console.log("Initialized ", result)
+      })
+    } else {
+
+      console.log('highlighted already exists');     
+
+    }
+
+  });
+}
 
 function makeEditableAndHighlight(colour) {
     var range, sel = window.getSelection();
+
     if (sel.rangeCount && sel.getRangeAt) {
-        range = sel.getRangeAt(0);
+      range = sel.getRangeAt(0);
+      saveRange(range);
     }
+
     document.designMode = "on";
     if (range) {
         sel.removeAllRanges();
@@ -49,49 +74,25 @@ function highlight(colour) {
     }
 }
 
+// function saveRange(range) {
+ 
+//   chrome.storage.local.get('highlighted');
+// }
+
+// function loadRanges() {
+//   chrome.storage.local.get('highlighted', function(result){
+//     console.log(result)
+//   });
+// }
+
 $(function() {
-  $('#content').mouseup(function(){
-        highlight('#D4FF00');
+  console.log("annotate");
+  
+  init();
+
+  $('body').mouseup(function(){
+      console.log('highlighted!')
+        highlight('yellow');
   });
 });
 
-// // Make sure the object is created if it's already not
-// if(!window.CurrentSelection){
-//     CurrentSelection = {}
-// }
-// //define the selector object
-// CurrentSelection.Selector = {}
- 
-// //get the current selection
-// CurrentSelection.Selector.getSelected = function(){
-//     var sel = '';
-//     if(window.getSelection){
-//         sel = window.getSelection()
-//     }
-//     else if(document.getSelection){
-//         sel = document.getSelection()
-//     }
-//     else if(document.selection){
-//         sel = document.selection.createRange()
-//     }
-//     return sel
-// }
-// //function to be called on mouseup
-// CurrentSelection.Selector.mouseup = function(){
-//     var st = CurrentSelection.Selector.getSelected()
-//     if(document.selection && !window.getSelection){
-//         var range = st
-//         range.pasteHTML("<span class='selectedText'>" + range.htmlText + "</span>");
-//     }
-//     else{
-//         var range = st.getRangeAt(0)    
-//         var newNode = document.createElement("span");
-//         console.log(range)
-//         newNode.setAttribute("class", "selectedText");
-//         range.surroundContents(newNode)                
-//     }
-// }
- 
-// $(function(){
-//     $(document.body).bind("mouseup",CurrentSelection.Selector.mouseup)
-// })
