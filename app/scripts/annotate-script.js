@@ -5,17 +5,16 @@ var Blue = rangy.createClassApplier('Blue');
 var Green = rangy.createClassApplier('Green');
 var Pink = rangy.createClassApplier('Pink');
 var Aqua = rangy.createClassApplier('Aqua');
+var Yellow = rangy.createClassApplier('Yellow');
 
-Highlighter
-  .addClassApplier(Red)
-  .addClassApplier(Blue)
-  .addClassApplier(Green)
-  .addClassApplier(Pink)
-  .addClassApplier(Aqua)
+Highlighter.addClassApplier(Red)
+Highlighter.addClassApplier(Blue)
+Highlighter.addClassApplier(Green)
+Highlighter.addClassApplier(Pink)
+Highlighter.addClassApplier(Aqua)
+Highlighter.addClassApplier(Yellow)
 
 console.dir(Highlighter);
-
-
 
 function initialize(){
 
@@ -98,7 +97,7 @@ $(function() {
   // $('body').on('click', function(){console.dir($('this').data())})
   $('body').mouseup(function(){
     console.log("HIGHLIGHT NOW")
-    Highlighter.highlightSelection('Yellow')
+    Highlighter.highlightSelection('Aqua')
   });
 
 
