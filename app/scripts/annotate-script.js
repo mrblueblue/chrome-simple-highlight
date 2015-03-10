@@ -20,6 +20,13 @@ Highlighter.addClassApplier(Yellow)
 chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
    console.log(request, " received from ", sender)
+
+   if (request.popup) {
+    console.log("the COLOR was ", Color)
+    Color = request.popup;
+    console.log("the COLOR is now ", Color)
+   }
+
   }
 );
 

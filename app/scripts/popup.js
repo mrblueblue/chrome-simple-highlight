@@ -19,7 +19,7 @@ $('button').on('click', function(){
 	background.console.log("you clicked the color ", color);
 
   // Send message to content script to change highlight color
-  chrome.tabs.sendMessage(activeTab, {greeting: "hello"}, function(response) {
+  chrome.tabs.sendMessage(activeTab, {popup: color}, function(response) {
       console.log(response.farewell);
     });
 
