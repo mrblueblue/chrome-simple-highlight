@@ -36,28 +36,33 @@ function initialize(){
           console.log("Added URL to storage")
         })
 
-      // URL already exists in storage
+      // URL already exists in storage, then repopulate highlights
       } else {
         console.log("The URL exists in storage")
+        console.log("starting deserialization")
+
+        var ranges;
+
+        console.log("ELSE", result[url])
+
+        Highlighter.deserialize(result[url][0]);
       }
     });
+  });
 
- });
 };
 
-function saveRange(range){
+function saveHighlights(ranges){
 
   var url = window.location.href.toString();
   console.log(url)
 
   chrome.storage.local.get(function(result){
 
-    console.log(result)
-
     if ( result[url] === undefined ){
       console.log("ERROR URL DOESNT EXIST ON STORAGE");
     } else {
-      result[url].push(range)
+      result[url].push(ranges)
     }
 
     console.log("ADDED ",result.url)
@@ -65,42 +70,43 @@ function saveRange(range){
     chrome.storage.local.set(result, function(){
       console.log('success')
     });
-
   });  
 }
 
-function trawlRanges(url){
+// function trawlRanges(url){
 
-  chrome.storage.local.get( function (result) {
+//   chrome.storage.local.get( function (result) {
 
-    var ranges = result[url];
+//     var ranges = result[url];
 
-    ranges.forEach( function (range) {
-      console.log("starting deserialize")
-      rangy.deserializeRange(range)
-      console.log(window.getSelection())
-      highlight('yellow');      
-    })
-  })
+//     ranges.forEach( function (range) {
+//       console.log("starting deserialize")
+//       rangy.deserializeRange(range)
+//       console.log(window.getSelection())
+//       highlight('yellow');      
+//     })
+//   })
 
-};
+// };
 
 
 $(function() {
 
   var url = window.location.href.toString();
+  var ranges;
 
   initialize();
-
-  trawlRanges(url);
   
-  // $('body').on('click', function(){console.dir($('this').data())})
   $('body').mouseup(function(){
-    console.log("HIGHLIGHT NOW")
-    Highlighter.highlightSelection('Aqua')
+    Highlighter.highlightSelection('Yellow')
+    ranges = Highlighter.serialize();
+    saveHighlights(ranges);
   });
 
+  
 
 });
+
+
 
 
