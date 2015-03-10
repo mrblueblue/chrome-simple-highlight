@@ -1,54 +1,63 @@
- chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
-   console.log(response);
- });
+function initialize(){
 
- 
- chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    console.log(request)
-  });
+  // Request Tab URL from Background
+  chrome.runtime.sendMessage({greeting: "I need my url. Please. Thank you."}, function(response) {
+   
+    var url = response.url.toString();
+
+    chrome.storage.local.get(function (result) {
+      console.log('This is the Storage',result)
+
+      // If URL does not exist on storage, then create storage array
+      if (result.url === undefined){
+        var urlStorage={}
+        urlStorage[url]=[];
+        chrome.storage.local.set(urlStorage, function(result){
+          console.log("Added URL to storage")
+        })
+
+      // URL already exists in storage
+      } else {
+        console.log("The URL exists in storage")
+      }
+    });
+
+ });
+};
+
 
 function saveRange(range){
-  chrome.storage.local.get('highlighted', function(result){
-    console.log("now we are pushing")
+
+  var url = window.location.href.toString();
+  console.log(url)
+
+  chrome.storage.local.get(function(result){
+
     console.log(result)
 
-    result['highlighted'].push(range)
-    console.log('this is the result ', result)
+    if ( result[url] === undefined ){
+      console.log("ERROR URL DOESNT EXIST ON STORAGE");
+    } else {
+      result[url].push(range)
+    }
+
+    console.log("ADDED ",result.url)
 
     chrome.storage.local.set(result, function(){
       console.log('success')
     });
+
   });  
 }
 
-function init(){
-
-
-
-  console.log("beginning initialization");
-
-  chrome.storage.local.get('highlighted', function(result) {
-
-    if (result === undefined) {
-      console.log('result is undefined')
-      chrome.storage.local.set({'highlighted':[]}, function(result){
-        console.log("Initialized ", result)
-      })
-    } else {
-
-      console.log('highlighted already exists');     
-
-    }
-
-  });
-}
 
 function makeEditableAndHighlight(colour) {
     var range, sel = window.getSelection();
 
     if (sel.rangeCount && sel.getRangeAt) {
       range = sel.getRangeAt(0);
+
+      // Save range to chrome storage
       saveRange(range);
     }
 
@@ -82,22 +91,19 @@ function highlight(colour) {
     }
 }
 
-// function saveRange(range) {
- 
-//   chrome.storage.local.get('highlighted');
-// }
+function trawlRanges(url){
 
-// function loadRanges() {
-//   chrome.storage.local.get('highlighted', function(result){
-//     console.log(result)
-//   });
-// }
+  chrome.storage.local.get( function (result) {
+    
+  })
+
+};
+
 
 $(function() {
-  console.log("annotate");
-  
-  init();
 
+  initialize();
+  
   $('body').mouseup(function(){
       console.log('highlighted!')
         highlight('yellow');
