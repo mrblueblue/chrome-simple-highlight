@@ -29,6 +29,15 @@ $(function() {
       saveHighlights(ranges);
     }
   });
+
+  // $('body').dblclick( function() {
+  //   console.log('click')
+  //   if ( selection.type === "Range" ){ 
+  //     Highlighter.unhighlightSelection()
+  //     ranges = Highlighter.serialize();
+  //     saveHighlights(ranges);
+  //   }
+  // });
 });
 
 // Message Listener
@@ -39,6 +48,8 @@ chrome.runtime.onMessage.addListener(
    }
    if (request.remove) {
     Highlighter.removeAllHighlights();
+    ranges = Highlighter.serialize();
+    saveHighlights(ranges);
    }
   }
 );
