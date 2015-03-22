@@ -1,9 +1,9 @@
 
 var tabUrl = window.location.href.toString();
-var Color = 'Yellow'
 var selection = window.getSelection();
 var ranges;
 
+var Color = 'Yellow';
 var Highlighter = rangy.createHighlighter();
 
 var Red = rangy.createClassApplier('Red');
@@ -20,25 +20,23 @@ Highlighter.addClassApplier(Pink);
 Highlighter.addClassApplier(Aqua);
 Highlighter.addClassApplier(Yellow);
 
-$(function() {
-  reloadHighlights();
-  $('body').mouseup( function() {
-    if ( selection.type === "Range" ){ 
-      Highlighter.highlightSelection(Color);
-      ranges = Highlighter.serialize();
-      saveHighlights(ranges);
+var reloadHighlights = function(){
+  chrome.storage.local.get( function (storage) {
+    if (storage[tabUrl]){
+      ranges = storage[tabUrl];
+      Highlighter.deserialize(ranges);
     }
   });
+};
 
-  // $('body').dblclick( function() {
-  //   console.log('click')
-  //   if ( selection.type === "Range" ){ 
-  //     Highlighter.unhighlightSelection()
-  //     ranges = Highlighter.serialize();
-  //     saveHighlights(ranges);
-  //   }
-  // });
-});
+var saveHighlights = function(ranges){
+  chrome.storage.local.get( function (storage) {
+    storage[tabUrl] = ranges;
+    chrome.storage.local.set(storage, function(){
+      console.log('saved higlights');
+    });
+  });  
+};
 
 // Message Listener
 chrome.runtime.onMessage.addListener(
@@ -54,25 +52,13 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-function reloadHighlights(){
-  chrome.storage.local.get( function (storage) {
-    if (storage[tabUrl]){
-      ranges = storage[tabUrl];
-      Highlighter.deserialize(ranges);
+$(function() {
+  reloadHighlights();
+  $('body').mouseup( function() {
+    if ( selection.type === "Range" ){ 
+      Highlighter.highlightSelection(Color);
+      ranges = Highlighter.serialize();
+      saveHighlights(ranges);
     }
   });
-};
-
-function saveHighlights(ranges){
-  chrome.storage.local.get( function (storage) {
-    storage[tabUrl] = ranges;
-    chrome.storage.local.set(storage, function(){
-      console.log('saved higlights');
-    });
-  });  
-};
-
-
-
-
-
+});
