@@ -1,8 +1,8 @@
 {
-  "name": "highlighter",
+  "name": "Simple Highlighter",
   "version": "0.0.2",
   "manifest_version": 2,
-  "description": "a simple highlighter",
+  "description": "A simple highlighter for Chrome",
   "icons": {
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
@@ -14,12 +14,11 @@
     "http://*/*", 
     "https://*/*"
   ],
-  "default_locale": "en",
   "background": {
     "scripts": [
       "scripts/background.js"
     ],
-    "persistent": false
+    "persistent": true
   },
   "content_scripts": [
     {
@@ -41,7 +40,7 @@
       "19": "images/highlight-icon.png",
       "38": "images/highlight-icon.png"
     },
-    "default_title": "annotate",
+    "default_title": "highlighter",
     "default_popup": "popup.html"
   }
 }

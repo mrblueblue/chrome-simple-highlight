@@ -41,10 +41,11 @@ var saveHighlights = function(ranges){
 // Message Listener
 chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
-   if (request.popup) {
-    Color = request.popup;
+   if (request.color) {
+    Color = request.color;
    }
    if (request.remove) {
+    console.log('remove')
     Highlighter.removeAllHighlights();
     ranges = Highlighter.serialize();
     saveHighlights(ranges);
