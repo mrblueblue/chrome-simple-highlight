@@ -1,3 +1,4 @@
+
 var background = chrome.extension.getBackgroundPage();
 
 $(function() {

@@ -4,8 +4,8 @@
   "manifest_version": 2,
   "description": "A simple highlighter for Chrome",
   "icons": {
-    "16": "images/icon-16.png",
-    "128": "images/icon-128.png"
+    "16": "images/rainbow-icon.png",
+    "128": "images/rainbow-icon.png"
   },
   "permissions": [
     "tabs",
@@ -37,8 +37,8 @@
   ],
   "browser_action": {
     "default_icon": {
-      "19": "images/highlight-icon.png",
-      "38": "images/highlight-icon.png"
+      "19": "images/rainbow-icon.png",
+      "38": "images/rainbow-icon.png"
     },
     "default_title": "highlighter",
     "default_popup": "popup.html"
