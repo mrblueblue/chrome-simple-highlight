@@ -1,12 +1,16 @@
 
-$(window).load(function() {
+$(window).on('load', initialize())
+
+function initialize() {
+
+  console.log('Loaded', rangy)
 
   var tabUrl = window.location.href.toString();
   var selection = window.getSelection();
   var ranges;
 
   var Color = 'Yellow';
-  var Highlighter = rangy.createHighlighter();
+  var Highlighter = rangy.createHighlighter(document, 'textContent');
 
   var Red = rangy.createClassApplier('Red');
   var Blue = rangy.createClassApplier('Blue');
@@ -64,5 +68,4 @@ $(window).load(function() {
       saveHighlights(ranges);
     }
   });
-
-});
+};
